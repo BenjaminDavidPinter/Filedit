@@ -1,4 +1,4 @@
-use std::{fs, io::Read};
+use std::{any::Any, fs, io::Read};
 
 fn main() {
     let mut file = fs::File::open("/Users/benjaminpinter/Desktop/SS.png").unwrap();
@@ -10,7 +10,15 @@ fn main() {
         //First 8 bytes of a png file are the same.
         check_png_signature(&file_bytes[0..8])
     );
-    println!("{:?}", read_next_chunk(&file_bytes[8..]));
+    let mut offset = usize::try_from(8).unwrap();
+    while (offset < file_size) {
+        let next_chunk = read_next_chunk(&file_bytes[offset..]);
+        let mut chunk_size: [u8; 4] = [0; 4];
+        chunk_size.copy_from_slice(&next_chunk.Length[0..4]);
+        let chunk_size = u32::from_be_bytes(chunk_size);
+        println!("===={:?}====", String::from_utf8_lossy(&next_chunk.Type));
+        offset += usize::try_from(chunk_size).unwrap() + usize::try_from(12).unwrap();
+    }
 }
 
 fn check_png_signature(bytes: &[u8]) -> bool {
@@ -23,8 +31,6 @@ fn read_next_chunk(bytes: &[u8]) -> PngChunk {
     chunk_size.copy_from_slice(&bytes[0..4]);
     let chunk_size = u32::from_be_bytes(chunk_size);
     let chunk_size = usize::try_from(chunk_size).unwrap();
-
-    println!("{:?}", chunk_size);
 
     PngChunk {
         Length: &bytes[0..4],
