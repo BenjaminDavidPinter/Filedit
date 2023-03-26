@@ -1,7 +1,9 @@
+use std::env;
 use std::{any::Any, fs, io::Read};
 
 fn main() {
-    let mut file = fs::File::open("/Users/benjaminpinter/Desktop/SS.png").unwrap();
+    let args: Vec<String> = env::args().collect();
+    let mut file = fs::File::open(&args[1]).unwrap();
     let mut file_bytes = vec![];
     let file_size = file.read_to_end(&mut file_bytes).unwrap();
     println!("Read {:?} bytes", file_size);
