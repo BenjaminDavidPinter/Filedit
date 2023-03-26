@@ -1,5 +1,5 @@
 use std::env;
-use std::{any::Any, fs, io::Read};
+use std::{fs, io::Read};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -13,19 +13,19 @@ fn main() {
         check_png_signature(&file_bytes[0..8])
     );
     let mut offset = usize::try_from(8).unwrap();
-    while (offset < file_size) {
+    while offset < file_size {
         let next_chunk = read_next_chunk(&file_bytes[offset..]);
         let mut chunk_size: [u8; 4] = [0; 4];
         chunk_size.copy_from_slice(&next_chunk.Length[0..4]);
         let chunk_size = u32::from_be_bytes(chunk_size);
-        println!("===={:?}====", String::from_utf8_lossy(&next_chunk.Type));
+        println!("===={:?}====", String::from_utf8_lossy(next_chunk.Type));
         offset += usize::try_from(chunk_size).unwrap() + usize::try_from(12).unwrap();
     }
 }
 
 fn check_png_signature(bytes: &[u8]) -> bool {
     let signature: Vec<u8> = vec![137, 80, 78, 71, 13, 10, 26, 10];
-    return signature.eq(bytes);
+    signature.eq(bytes)
 }
 
 fn read_next_chunk(bytes: &[u8]) -> PngChunk {
