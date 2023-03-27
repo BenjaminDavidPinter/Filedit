@@ -1,5 +1,7 @@
 use std::env;
 use std::{fs, io::Read};
+
+use png::PngChunk;
 mod png;
 
 fn main() {
@@ -13,6 +15,9 @@ fn main() {
     }
 
     let mut offset = usize::try_from(8).unwrap();
+
+    let mut chunkCollection: Vec<png::PngChunk> = Vec::new();
+
     while offset < file_size {
         let next_chunk = png::read_png_chunk_from_bytes(&file_bytes[offset..]);
         println!(
@@ -20,5 +25,10 @@ fn main() {
             String::from_utf8_lossy(next_chunk.chunk_type)
         );
         offset += next_chunk.get_total_size();
+        chunkCollection.push(next_chunk);
     }
+
+    let pngFile = png::Png::New(chunkCollection.as_slice());
+
+    println!("{:?}", pngFile);
 }
