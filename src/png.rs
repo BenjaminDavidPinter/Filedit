@@ -1,13 +1,9 @@
 pub trait PngChunk {
-    fn get_type(&self) -> [u8];
-    fn get_size(&self) -> u32;
-    fn get_data(&self) -> [u8];
-    fn get_crc(&self) -> [u8];
-    fn get_total_size(&self) -> usize;
-}
-
-pub struct Png {
-    pub chunks: [Box<dyn PngChunk>],
+    fn get_type(&self) -> &[u8];
+    fn get_size(&self) -> &u32;
+    fn get_data(&self) -> &[u8];
+    fn get_crc(&self) -> &[u8];
+    fn get_total_size(&self) -> &usize;
 }
 
 #[derive(Debug)]

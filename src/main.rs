@@ -1,7 +1,5 @@
 use std::env;
 use std::{fs, io::Read};
-
-use png::PngChunk;
 mod png;
 
 fn main() {
@@ -14,7 +12,7 @@ fn main() {
         panic!("Not a valid png");
     }
 
-    let mut offset = usize::try_from(8).unwrap();
+    let mut offset = 8;
 
     while offset < file_size {
         let next_chunk = png::read_png_chunk_from_bytes(&file_bytes[offset..]);
