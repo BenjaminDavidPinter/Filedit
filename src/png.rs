@@ -11,7 +11,7 @@ impl BaseChunk {
         let mut chunk_size: [u8; 4] = [0; 4];
         chunk_size.copy_from_slice(&self.length[0..4]);
         let chunk_size = u32::from_be_bytes(chunk_size);
-        return usize::try_from(chunk_size).unwrap() + usize::try_from(12).unwrap();
+        usize::try_from(chunk_size).unwrap() + usize::try_from(12).unwrap()
     }
 }
 

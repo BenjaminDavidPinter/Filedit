@@ -1,5 +1,3 @@
-use std::iter::Filter;
-
 use crate::png::BaseChunk;
 
 pub struct IHDR {
@@ -64,14 +62,14 @@ pub fn from_base_chunk(base_chunk: &BaseChunk) -> IHDR {
     let mut buf: [u8; 13] = [0; 13];
     buf.copy_from_slice(&base_chunk.data[0..13]);
 
-    let chunk = IHDR {
+    
+
+    IHDR {
         length: base_chunk.length,
         ctype: base_chunk.ctype,
         data: buf,
         crc: base_chunk.crc,
-    };
-
-    chunk
+    }
 }
 
 #[derive(Debug)]
