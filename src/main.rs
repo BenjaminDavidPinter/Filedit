@@ -1,7 +1,6 @@
 use std::env;
 use std::{fs, io::Read};
-mod IHDR;
-mod png;
+pub mod png;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -18,9 +17,13 @@ fn main() {
     while offset < file_size {
         let next_chunk = png::read_png_chunk_from_bytes(&file_bytes[offset..]);
         match next_chunk.ctype {
-            IHDR::CTYPE => {
-                let ihdr_chunk = IHDR::from_base_chunk(&next_chunk);
-                IHDR::print_chunk(&ihdr_chunk);
+            png::chunks::IHDR::CTYPE => {
+                let ihdr_chunk = png::chunks::IHDR::from_base_chunk(&next_chunk);
+                png::chunks::IHDR::print_chunk(&ihdr_chunk);
+            }
+            png::chunks::iCCP::CTYPE => {
+                let iccp_chunk = png::chunks::iCCP::from_base_chunk(&next_chunk);
+                png::chunks::iCCP::print_chunk(&iccp_chunk);
             }
             _ => {
                 println!("===={:?}====", String::from_utf8_lossy(&next_chunk.ctype));

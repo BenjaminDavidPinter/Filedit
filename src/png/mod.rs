@@ -1,3 +1,5 @@
+pub mod chunks;
+
 #[derive(Debug)]
 pub struct BaseChunk {
     pub length: [u8; 4],
