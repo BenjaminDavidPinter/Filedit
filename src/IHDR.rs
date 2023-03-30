@@ -1,5 +1,7 @@
 use crate::png::BaseChunk;
 
+pub const CTYPE: [u8; 4] = [73, 72, 68, 82];
+
 pub struct IHDR {
     pub length: [u8; 4],
     pub ctype: [u8; 4],
@@ -62,14 +64,26 @@ pub fn from_base_chunk(base_chunk: &BaseChunk) -> IHDR {
     let mut buf: [u8; 13] = [0; 13];
     buf.copy_from_slice(&base_chunk.data[0..13]);
 
-    
-
     IHDR {
         length: base_chunk.length,
         ctype: base_chunk.ctype,
         data: buf,
         crc: base_chunk.crc,
     }
+}
+
+pub fn print_chunk(ihdr_chunk: &IHDR) {
+    println!("===={:?}====", String::from_utf8_lossy(&ihdr_chunk.ctype));
+    println!("Width: {}", ihdr_chunk.get_width());
+    println!("Height: {}", ihdr_chunk.get_height());
+    println!("Bit Depth: {}", ihdr_chunk.get_bit_depth());
+    println!("Color Type: {:?}", ihdr_chunk.get_color_type());
+    println!(
+        "Compression Method: {:?}",
+        ihdr_chunk.get_compression_method()
+    );
+    println!("Filter Method: {:?}", ihdr_chunk.get_filter_method());
+    println!("Interface Method: {:?}", ihdr_chunk.get_interface_method());
 }
 
 #[derive(Debug)]
