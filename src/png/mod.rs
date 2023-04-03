@@ -1,3 +1,5 @@
+use std::{fs, io::Read};
+
 pub mod chunks;
 
 #[derive(Debug)]
@@ -43,5 +45,35 @@ pub fn read_png_chunk_from_bytes(bytes: &[u8]) -> BaseChunk {
         ctype: chunk_type,
         data: chunk_data,
         crc: chunk_crc,
+    }
+}
+
+pub fn parse(file: &str) {
+    let mut file = fs::File::open(&file).unwrap();
+    let mut file_bytes = vec![];
+    let file_size = file.read_to_end(&mut file_bytes).unwrap();
+
+    if !check_png_signature(&file_bytes[0..8]) {
+        panic!("Not a valid png");
+    }
+    let mut offset = 8;
+
+    while offset < file_size {
+        let next_chunk = read_png_chunk_from_bytes(&file_bytes[offset..]);
+        match next_chunk.ctype {
+            chunks::IHDR::CTYPE => {
+                let ihdr_chunk = chunks::IHDR::from_base_chunk(&next_chunk);
+                chunks::IHDR::print_chunk(&ihdr_chunk);
+            }
+            chunks::iCCP::CTYPE => {
+                let iccp_chunk = chunks::iCCP::from_base_chunk(&next_chunk);
+                chunks::iCCP::print_chunk(&iccp_chunk);
+            }
+            _ => {
+                println!("===={:?}====", String::from_utf8_lossy(&next_chunk.ctype));
+            }
+        }
+
+        offset += next_chunk.get_total_size();
     }
 }
