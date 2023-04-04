@@ -7,6 +7,10 @@ fn main() {
     let mut operation = 0;
     let mut file = String::new();
 
+    /*
+    There is certainly a better way to do this, and we can work on this a little more once we
+        begin to introduce more file formats.
+    */
     for arg in &args {
         println!("{:?}", arg);
         if arg.starts_with("-") {
@@ -18,8 +22,6 @@ fn main() {
             file = String::from(arg);
         }
     }
-
-    println!("Doing operation {} on {}", operation, file);
 
     match operation {
         1 => png::parse(&file),

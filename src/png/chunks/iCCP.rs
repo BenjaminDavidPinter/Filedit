@@ -67,6 +67,23 @@ impl iCCP {
         buf.copy_from_slice(&iccp_profile_bytes[20..24]);
         buf
     }
+
+    pub fn get_date_and_time(iccp_profile_bytes: &Vec<u8>) -> [u8; 12] {
+        let mut buf: [u8; 12] = [0; 12];
+        buf.copy_from_slice(&iccp_profile_bytes[24..36]);
+        buf
+    }
+
+    pub fn get_file_signature(iccp_profile_bytes: &Vec<u8>) -> [u8; 4] {
+        let mut buf: [u8; 4] = [0; 4];
+        buf.copy_from_slice(&iccp_profile_bytes[36..40]);
+        buf
+    }
+    pub fn get_primary_platform(iccp_profile_bytes: &Vec<u8>) -> [u8; 4] {
+        let mut buf: [u8; 4] = [0; 4];
+        buf.copy_from_slice(&iccp_profile_bytes[40..44]);
+        buf
+    }
 }
 
 pub fn from_base_chunk(base_chunk: &BaseChunk) -> iCCP {
@@ -116,6 +133,18 @@ pub fn print_chunk(iccp_chunk: &iCCP) {
         "\tPCS Encoding: {:?}",
         String::from_utf8_lossy(&iCCP::get_pcs_encoding(&iccp_chunk.get_profile()))
     );
+    println!(
+        "\tProfile Created On: {:?}",
+        interpret_date_and_time(&iCCP::get_date_and_time(&iccp_chunk.get_profile()))
+    );
+    println!(
+        "\tProfile Signature: {:?}",
+        String::from_utf8_lossy(&iCCP::get_file_signature(&iccp_chunk.get_profile()))
+    );
+    println!(
+        "\tPrimary Platform: {:?}",
+        String::from_utf8_lossy(&iCCP::get_primary_platform(&iccp_chunk.get_profile()))
+    );
 }
 
 #[derive(Debug)]
@@ -128,4 +157,30 @@ fn decode_reader(bytes: Vec<u8>) -> io::Result<Vec<u8>> {
     let mut s = vec![];
     z.read_to_end(&mut s).unwrap();
     Ok(s)
+}
+
+fn interpret_date_and_time(bytes: &[u8; 12]) -> String {
+    let mut shared_buf: [u8; 2] = [0; 2];
+    shared_buf.copy_from_slice(&bytes[0..2]);
+    let year = u16::from_be_bytes(shared_buf);
+
+    shared_buf.copy_from_slice(&bytes[2..4]);
+    let month = u16::from_be_bytes(shared_buf);
+
+    shared_buf.copy_from_slice(&bytes[4..6]);
+    let day = u16::from_be_bytes(shared_buf);
+
+    shared_buf.copy_from_slice(&bytes[6..8]);
+    let hours = u16::from_be_bytes(shared_buf);
+
+    shared_buf.copy_from_slice(&bytes[8..10]);
+    let minutes = u16::from_be_bytes(shared_buf);
+
+    shared_buf.copy_from_slice(&bytes[10..12]);
+    let seconds = u16::from_be_bytes(shared_buf);
+
+    return String::from(format!(
+        "{}/{}/{} {}:{}:{:0>2}",
+        month, day, year, hours, minutes, seconds
+    ));
 }
