@@ -7,11 +7,6 @@ Current Chunk Completion;
 - IHDR
 - iCCP (Partial)
 
-
-## 3/30/23
-The next step is understanding how these zlib/deflate compression libraries work.
-
-
 Example output;
 
 ```
@@ -26,7 +21,99 @@ Interface Method: Method0
 ===="iCCP"====
 Profile Name: "ICC Profile"
 Compression Method: Method0
-thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Error { kind: InvalidData, message: "stream did not contain valid UTF-8" }', src/png/chunks/iCCP.rs:35:59
-note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
-
+Profile Data:
+	Profile Size: 4032
+	Preferred CMM: "appl"
+	Profile Version: 2.16.0.0
+	Profile Class: "mntr"
+	Color Space: "RGB "
+	PCS Encoding: "XYZ "
+	Profile Created On: "3/25/2023 12:40:00"
+	Profile Signature: "acsp"
+	Primary Platform: "APPL"
+===="eXIf"====
+===="pHYs"====
+===="iTXt"====
+===="iDOT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IDAT"====
+===="IEND"====
 ```
