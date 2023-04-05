@@ -1,6 +1,7 @@
 use std::{fs, io::Read};
 
 pub mod chunks;
+pub mod misc;
 
 #[derive(Debug)]
 pub struct BaseChunk {
