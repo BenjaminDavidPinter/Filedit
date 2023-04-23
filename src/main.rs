@@ -4,7 +4,6 @@ pub mod png;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let mut operation = 0;
     let mut file = String::new();
 
     /*
@@ -13,18 +12,11 @@ fn main() {
     */
     for arg in &args {
         println!("{:?}", arg);
-        if arg.starts_with("-") {
-            if arg.contains("png") {
-                operation = 1;
+        if arg.ends_with("png") {
+            if Path::new(&arg).is_file() {
+                file = String::from(arg);
             }
+            png::parse(&file)
         }
-        if Path::new(&arg).is_file() {
-            file = String::from(arg);
-        }
-    }
-
-    match operation {
-        1 => png::parse(&file),
-        _ => panic!("Invalid operation"),
     }
 }

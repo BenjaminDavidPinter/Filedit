@@ -62,13 +62,13 @@ pub fn parse(file: &str) {
     while offset < file_size {
         let next_chunk = read_png_chunk_from_bytes(&file_bytes[offset..]);
         match next_chunk.ctype {
-            chunks::IHDR::CTYPE => {
-                let ihdr_chunk = chunks::IHDR::from_base_chunk(&next_chunk);
-                chunks::IHDR::print_chunk(&ihdr_chunk);
+            chunks::ihdr::CTYPE => {
+                let ihdr_chunk = chunks::ihdr::from_base_chunk(&next_chunk);
+                chunks::ihdr::print_chunk(&ihdr_chunk);
             }
-            chunks::iCCP::CTYPE => {
-                let iccp_chunk = chunks::iCCP::from_base_chunk(&next_chunk);
-                chunks::iCCP::print_chunk(&iccp_chunk);
+            chunks::iccp::CTYPE => {
+                let iccp_chunk = chunks::iccp::from_base_chunk(&next_chunk);
+                chunks::iccp::print_chunk(&iccp_chunk);
             }
             _ => {
                 println!("===={:?}====", String::from_utf8_lossy(&next_chunk.ctype));

@@ -1,2 +1,2 @@
-pub mod IHDR;
-pub mod iCCP;
+pub mod ihdr;
+pub mod iccp;
