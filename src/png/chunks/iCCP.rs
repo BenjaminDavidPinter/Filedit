@@ -70,27 +70,27 @@ pub fn print_chunk(iccp_chunk: &iCCP) {
     );
     println!(
         "\tProfile Class: {:?}",
-        String::from_utf8_lossy(&IccProfile::get_profile_class(&profile_data))
+        String::from_utf8_lossy(IccProfile::get_profile_class(&profile_data))
     );
     println!(
         "\tColor Space: {:?}",
-        String::from_utf8_lossy(&IccProfile::get_color_space(&profile_data))
+        String::from_utf8_lossy(IccProfile::get_color_space(&profile_data))
     );
     println!(
         "\tPCS Encoding: {:?}",
-        String::from_utf8_lossy(&IccProfile::get_pcs_encoding(&profile_data))
+        String::from_utf8_lossy(IccProfile::get_pcs_encoding(&profile_data))
     );
     println!(
         "\tProfile Created On: {:?}",
-        interpret_date_and_time(&IccProfile::get_date_and_time(&profile_data))
+        interpret_date_and_time(IccProfile::get_date_and_time(&profile_data))
     );
     println!(
         "\tProfile Signature: {:?}",
-        String::from_utf8_lossy(&IccProfile::get_file_signature(&profile_data))
+        String::from_utf8_lossy(IccProfile::get_file_signature(&profile_data))
     );
     println!(
         "\tPrimary Platform: {:?}",
-        String::from_utf8_lossy(&IccProfile::get_primary_platform(&profile_data))
+        String::from_utf8_lossy(IccProfile::get_primary_platform(&profile_data))
     );
 }
 
