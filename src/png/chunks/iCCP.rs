@@ -17,12 +17,15 @@ pub struct iCCP<'a> {
 
 impl iCCP<'_> {
     //TODO: Rewrite this, I don't want to copy the profile data.
-    pub fn get_profile_name(&self) -> Vec<&u8> {
-        self.data
-            .clone()
-            .into_iter()
-            .take_while(|x| !char::is_control(**x as char))
-            .collect::<Vec<_>>()
+    pub fn get_profile_name(&self) -> &[u8] {
+        /*Find the first index of control character, and then use that to perform a standard slice*/
+        let position_of_stop = self
+            .data
+            .iter()
+            .position(|&x| char::is_control(x as char))
+            .unwrap();
+
+        &self.data[0..position_of_stop]
     }
 
     pub fn get_compression_method(&self) -> CompressionMethod {
@@ -46,7 +49,10 @@ pub fn from_base_chunk(base_chunk: &BaseChunk) -> iCCP {
 
 pub fn print_chunk(iccp_chunk: &iCCP) {
     println!("===={:?}====", String::from_utf8_lossy(&iccp_chunk.ctype));
-    println!("Profile Name: {:?}", iccp_chunk.get_profile_name());
+    println!(
+        "Profile Name: {:?}",
+        String::from_utf8_lossy(&iccp_chunk.get_profile_name())
+    );
     println!(
         "Compression Method: {:?}",
         iccp_chunk.get_compression_method()

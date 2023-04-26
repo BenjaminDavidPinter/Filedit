@@ -1,6 +1,3 @@
-use crate::png::chunks::iccp;
-use crate::png::misc::ICC::DateTimeNumber::DateTimeNumber;
-
 pub struct IccProfile {}
 
 impl IccProfile {
