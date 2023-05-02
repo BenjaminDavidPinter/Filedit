@@ -31,11 +31,25 @@ impl IccProfile {
         &iccp_profile_bytes[24..36]
     }
 
-    pub fn get_file_signature(iccp_profile_bytes: &Vec<u8>) -> &[u8] {
-        &iccp_profile_bytes[36..40]
-    }
+    pub fn get_file_signature(iccp_profile_bytes: &Vec<u8>) -> &[u8] { &iccp_profile_bytes[36..40] }
 
-    pub fn get_primary_platform(iccp_profile_bytes: &Vec<u8>) -> &[u8] {
-        &iccp_profile_bytes[40..44]
-    }
+    pub fn get_primary_platform(iccp_profile_bytes: &Vec<u8>) -> &[u8] { &iccp_profile_bytes[40..44] }
+
+    pub fn get_profile_flags(iccp_profile_bytes: &Vec<u8>) -> &[u8] { &iccp_profile_bytes[44..48] }
+
+    pub fn get_device_manufacturer(iccp_profile_bytes: &Vec<u8>) -> &[u8] { &iccp_profile_bytes[48..52] }
+
+    pub fn get_device_model(iccp_profile_bytes: &Vec<u8>) -> &[u8] { &iccp_profile_bytes[52..56] }
+
+    pub fn get_device_attributes(iccp_profile_bytes: &Vec<u8>) -> &[u8] { &iccp_profile_bytes[56..64] }
+
+    pub fn get_rendering_intent(icc_profile_bytes: &Vec<u8>) -> &[u8] { &icc_profile_bytes[64..68] }
+
+    pub fn get_pcs_illuminant(icc_profile_bytes: &Vec<u8>) -> &[u8] { &icc_profile_bytes[68..80] }
+
+    pub fn get_profile_creator(icc_profile_bytes: &Vec<u8>) -> &[u8] { &icc_profile_bytes[80..84] }
+
+    pub fn get_profile_id(icc_profile_bytes: &Vec<u8>) -> &[u8] { &icc_profile_bytes[84..100] }
+
+    pub fn get_reserved_bits(icc_profile_bytes: &Vec<u8>) -> &[u8] { &icc_profile_bytes[100..128] }
 }

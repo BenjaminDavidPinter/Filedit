@@ -2,7 +2,6 @@ use flate2::read::ZlibDecoder;
 use std::io;
 use std::io::prelude::*;
 
-use crate::png::misc::ICC::DateTimeNumber::DateTimeNumber;
 use crate::png::misc::ICC::IccProfile::IccProfile;
 use crate::png::BaseChunk;
 
@@ -98,6 +97,43 @@ pub fn print_chunk(iccp_chunk: &iCCP) {
         "\tPrimary Platform: {:?}",
         String::from_utf8_lossy(IccProfile::get_primary_platform(&profile_data))
     );
+    println!(
+        "\tProfile Flags: {:?}",
+        IccProfile::get_profile_flags(&profile_data)
+    );
+    println!(
+        "\tDevice Manufacturer: {:?}",
+        IccProfile::get_device_manufacturer(&profile_data)
+    );
+    println!(
+        "\tDevice Model: {:?}",
+        IccProfile::get_device_model(&profile_data)
+    );
+    println!(
+        "\tDevice Attrs: {:?}",
+        IccProfile::get_device_attributes(&profile_data)
+    );
+    println!(
+        "\tRendering Intent: {:?}",
+        IccProfile::get_rendering_intent(&profile_data)
+    );
+    println!(
+        "\tPCS Illuminant: {:?}",
+        IccProfile::get_pcs_illuminant(&profile_data)
+    );
+    println!(
+        "\tProfile Creator: {:?}",
+        IccProfile::get_profile_creator(&profile_data)
+    );
+    println!(
+        "\tProfile ID: {:?}",
+        IccProfile::get_profile_id(&profile_data)
+    );
+    println!(
+        "\tResrved Bits: {:?}",
+        IccProfile::get_reserved_bits(&profile_data)
+    );
+
 }
 
 #[derive(Debug)]
