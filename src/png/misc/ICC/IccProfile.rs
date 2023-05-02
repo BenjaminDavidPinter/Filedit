@@ -1,9 +1,6 @@
-pub struct IccProfile {
-
-}
+pub struct IccProfile {}
 
 impl IccProfile {
-
     /*
     The value in the profile size field shall be the exact size obtained by combining the profile
     header, the tag table, and the tagged element data, including the pad bytes for the last tag.

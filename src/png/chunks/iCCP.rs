@@ -133,7 +133,6 @@ pub fn print_chunk(iccp_chunk: &iCCP) {
         "\tResrved Bits: {:?}",
         IccProfile::get_reserved_bits(&profile_data)
     );
-
 }
 
 #[derive(Debug)]
