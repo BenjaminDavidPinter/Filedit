@@ -72,17 +72,17 @@ pub fn from_base_chunk(base_chunk: &BaseChunk) -> IHDR {
 }
 
 pub fn print_chunk(ihdr_chunk: &IHDR) {
-    println!("{:=^51}", String::from_utf8_lossy(&ihdr_chunk.ctype));
-    println!("{:^24}={:^30}", "Field", "Value");
-    println!("{:=^51}","=");
-    println!(" {:>22} = {}", "Width", ihdr_chunk.get_width());
-    println!(" {:>22} = {}", "Height", ihdr_chunk.get_height());
-    println!(" {:>22} = {}", "Bit Depth", ihdr_chunk.get_bit_depth());
-    println!(" {:>22} = {}", "Color Type", ihdr_chunk.get_color_type());
-    println!(" {:>22} = {}", "Compression Mthd.", ihdr_chunk.get_compression_method());
-    println!(" {:>22} = {}", "Filter Mthd.", ihdr_chunk.get_filter_method());
-    println!(" {:>22} = {}", "Interface Mthd.", ihdr_chunk.get_interface_method());
-    println!("{:=^51}","=");
+    println!("{:=^50}", String::from_utf8_lossy(&ihdr_chunk.ctype));
+    println!("{:^23} = {:^25}", "Field", "Value");
+    println!("{:=^50}","=");
+    println!("{:>23} = {}", "Width", ihdr_chunk.get_width());
+    println!("{:>23} = {}", "Height", ihdr_chunk.get_height());
+    println!("{:>23} = {}", "Bit Depth", ihdr_chunk.get_bit_depth());
+    println!("{:>23} = {}", "Color Type", ihdr_chunk.get_color_type());
+    println!("{:>23} = {}", "Compression Mthd.", ihdr_chunk.get_compression_method());
+    println!("{:>23} = {}", "Filter Mthd.", ihdr_chunk.get_filter_method());
+    println!("{:>23} = {}", "Interface Mthd.", ihdr_chunk.get_interface_method());
+    println!("{:=^50}","=");
     println!();
 }
 
