@@ -47,7 +47,7 @@ pub fn from_base_chunk(base_chunk: &BaseChunk) -> iCCP {
 }
 
 pub fn print_chunk(iccp_chunk: &iCCP) {
-    println!("===={:?}====", String::from_utf8_lossy(&iccp_chunk.ctype));
+    println!("========{:?}========", String::from_utf8_lossy(&iccp_chunk.ctype));
     println!(
         "Profile Name: {:?}",
         String::from_utf8_lossy(&iccp_chunk.get_profile_name())
@@ -56,13 +56,13 @@ pub fn print_chunk(iccp_chunk: &iCCP) {
         "Compression Method: {:?}",
         iccp_chunk.get_compression_method()
     );
-    println!("Profile Data:");
+    println!("\tProfile Header:");
     println!(
-        "\tProfile Size: {:?}",
+        "\t\tProfile Size: \t\t{:?}",
         IccProfile::get_profile_size(&iccp_chunk.get_profile())
     );
     println!(
-        "\tPreferred CMM: {:?}",
+        "\t\tPreferred CMM: \t\t{:?}",
         String::from_utf8_lossy(&IccProfile::get_profile_preferred_cmm_type(
             &iccp_chunk.get_profile()
         ))
@@ -70,23 +70,23 @@ pub fn print_chunk(iccp_chunk: &iCCP) {
     let profile_data = iccp_chunk.get_profile();
     let version = IccProfile::get_profile_version(&profile_data);
     println!(
-        "\tProfile Version: {:?}.{:?}.{:?}.{:?}",
+        "\t\tProfile Version: \t{:?}.{:?}.{:?}.{:?}",
         version[0], version[1], version[2], version[3]
     );
     println!(
-        "\tProfile Class: {:?}",
+        "\t\tProfile Class: \t\t{:?}",
         String::from_utf8_lossy(IccProfile::get_profile_class(&profile_data))
     );
     println!(
-        "\tColor Space: {:?}",
+        "\t\tColor Space: \t\t{:?}",
         String::from_utf8_lossy(IccProfile::get_color_space(&profile_data))
     );
     println!(
-        "\tPCS Encoding: {:?}",
+        "\t\tPCS Encoding: \t\t{:?}",
         String::from_utf8_lossy(IccProfile::get_pcs_encoding(&profile_data))
     );
     println!(
-        "\tProfile Created On: {:?}",
+        "\t\tProfile Created On: \t{:?}",
         interpret_date_and_time(IccProfile::get_date_and_time(&profile_data))
     );
     println!(
@@ -103,7 +103,7 @@ pub fn print_chunk(iccp_chunk: &iCCP) {
     );
     println!(
         "\tDevice Manufacturer: {:?}",
-        IccProfile::get_device_manufacturer(&profile_data)
+        String::from_utf8_lossy(IccProfile::get_device_manufacturer(&profile_data))
     );
     println!(
         "\tDevice Model: {:?}",
@@ -123,7 +123,7 @@ pub fn print_chunk(iccp_chunk: &iCCP) {
     );
     println!(
         "\tProfile Creator: {:?}",
-        IccProfile::get_profile_creator(&profile_data)
+        String::from_utf8_lossy(IccProfile::get_profile_creator(&profile_data))
     );
     println!(
         "\tProfile ID: {:?}",

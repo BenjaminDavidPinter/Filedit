@@ -1,5 +1,4 @@
 use crate::png::BaseChunk;
-
 pub const CTYPE: [u8; 4] = [73, 72, 68, 82];
 
 pub struct IHDR {
@@ -73,17 +72,18 @@ pub fn from_base_chunk(base_chunk: &BaseChunk) -> IHDR {
 }
 
 pub fn print_chunk(ihdr_chunk: &IHDR) {
-    println!("===={:?}====", String::from_utf8_lossy(&ihdr_chunk.ctype));
-    println!("Width: {}", ihdr_chunk.get_width());
-    println!("Height: {}", ihdr_chunk.get_height());
-    println!("Bit Depth: {}", ihdr_chunk.get_bit_depth());
-    println!("Color Type: {:?}", ihdr_chunk.get_color_type());
-    println!(
-        "Compression Method: {:?}",
-        ihdr_chunk.get_compression_method()
-    );
-    println!("Filter Method: {:?}", ihdr_chunk.get_filter_method());
-    println!("Interface Method: {:?}", ihdr_chunk.get_interface_method());
+    println!("{:=^51}", String::from_utf8_lossy(&ihdr_chunk.ctype));
+    println!("{:^24}={:^30}", "Field", "Value");
+    println!("{:=^51}","=");
+    println!(" {:>22} = {}", "Width", ihdr_chunk.get_width());
+    println!(" {:>22} = {}", "Height", ihdr_chunk.get_height());
+    println!(" {:>22} = {}", "Bit Depth", ihdr_chunk.get_bit_depth());
+    println!(" {:>22} = {}", "Color Type", ihdr_chunk.get_color_type());
+    println!(" {:>22} = {}", "Compression Mthd.", ihdr_chunk.get_compression_method());
+    println!(" {:>22} = {}", "Filter Mthd.", ihdr_chunk.get_filter_method());
+    println!(" {:>22} = {}", "Interface Mthd.", ihdr_chunk.get_interface_method());
+    println!("{:=^51}","=");
+    println!();
 }
 
 #[derive(Debug)]
@@ -95,9 +95,31 @@ pub enum ColorType {
     TruecolorWithAlpha,
 }
 
+impl std::fmt::Display for ColorType {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let printable = match *self {
+            ColorType::Grayscale => "Grayscale",
+            ColorType::Truecolor => "True Color",
+            ColorType::IndexedColor => "Indexed Color",
+            ColorType::GrayscaleWithAlpha  => "Grayscale w/Alpha",
+            ColorType::TruecolorWithAlpha => "True Color w/Alpha"
+        };
+        write!(f, "{}", printable)
+    }
+}
+
 #[derive(Debug)]
 pub enum CompressionType {
     DeflateInflate,
+}
+
+impl std::fmt::Display for CompressionType {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let printable = match *self {
+            CompressionType::DeflateInflate => "Deflate/Inflate"
+        };
+        write!(f, "{}", printable)
+    }
 }
 
 #[derive(Debug)]
@@ -105,8 +127,27 @@ pub enum FilterMethod {
     Method0,
 }
 
+impl std::fmt::Display for FilterMethod {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let printable = match *self {
+            FilterMethod::Method0 => "Method 0"
+        };
+        write!(f, "{}", printable)
+    }
+}
+
 #[derive(Debug)]
 pub enum InterfaceMethod {
     Method0,
     Method1,
+}
+
+impl std::fmt::Display for InterfaceMethod {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        let printable = match *self {
+            InterfaceMethod::Method0 => "Method 0",
+            InterfaceMethod::Method1 => "Method 1"
+        };
+        write!(f, "{}", printable)
+    }
 }
