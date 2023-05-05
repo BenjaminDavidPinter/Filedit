@@ -74,15 +74,27 @@ pub fn from_base_chunk(base_chunk: &BaseChunk) -> IHDR {
 pub fn print_chunk(ihdr_chunk: &IHDR) {
     println!("{:=^50}", String::from_utf8_lossy(&ihdr_chunk.ctype));
     println!("{:^23} = {:^25}", "Field", "Value");
-    println!("{:=^50}","=");
+    println!("{:=^50}", "=");
     println!("{:>23} = {}", "Width", ihdr_chunk.get_width());
     println!("{:>23} = {}", "Height", ihdr_chunk.get_height());
     println!("{:>23} = {}", "Bit Depth", ihdr_chunk.get_bit_depth());
     println!("{:>23} = {}", "Color Type", ihdr_chunk.get_color_type());
-    println!("{:>23} = {}", "Compression Mthd.", ihdr_chunk.get_compression_method());
-    println!("{:>23} = {}", "Filter Mthd.", ihdr_chunk.get_filter_method());
-    println!("{:>23} = {}", "Interface Mthd.", ihdr_chunk.get_interface_method());
-    println!("{:=^50}","=");
+    println!(
+        "{:>23} = {}",
+        "Compression Mthd.",
+        ihdr_chunk.get_compression_method()
+    );
+    println!(
+        "{:>23} = {}",
+        "Filter Mthd.",
+        ihdr_chunk.get_filter_method()
+    );
+    println!(
+        "{:>23} = {}",
+        "Interface Mthd.",
+        ihdr_chunk.get_interface_method()
+    );
+    println!("{:=^50}", "=");
     println!();
 }
 
@@ -101,8 +113,8 @@ impl std::fmt::Display for ColorType {
             ColorType::Grayscale => "Grayscale",
             ColorType::Truecolor => "True Color",
             ColorType::IndexedColor => "Indexed Color",
-            ColorType::GrayscaleWithAlpha  => "Grayscale w/Alpha",
-            ColorType::TruecolorWithAlpha => "True Color w/Alpha"
+            ColorType::GrayscaleWithAlpha => "Grayscale w/Alpha",
+            ColorType::TruecolorWithAlpha => "True Color w/Alpha",
         };
         write!(f, "{}", printable)
     }
@@ -116,7 +128,7 @@ pub enum CompressionType {
 impl std::fmt::Display for CompressionType {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         let printable = match *self {
-            CompressionType::DeflateInflate => "Deflate/Inflate"
+            CompressionType::DeflateInflate => "Deflate/Inflate",
         };
         write!(f, "{}", printable)
     }
@@ -130,7 +142,7 @@ pub enum FilterMethod {
 impl std::fmt::Display for FilterMethod {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         let printable = match *self {
-            FilterMethod::Method0 => "Method 0"
+            FilterMethod::Method0 => "Method 0",
         };
         write!(f, "{}", printable)
     }
@@ -146,7 +158,7 @@ impl std::fmt::Display for InterfaceMethod {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         let printable = match *self {
             InterfaceMethod::Method0 => "Method 0",
-            InterfaceMethod::Method1 => "Method 1"
+            InterfaceMethod::Method1 => "Method 1",
         };
         write!(f, "{}", printable)
     }

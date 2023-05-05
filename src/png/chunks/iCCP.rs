@@ -46,8 +46,14 @@ pub fn from_base_chunk(base_chunk: &BaseChunk) -> iCCP {
     }
 }
 
+/*
+Next up, this needs a rewrite using the table methodology
+*/
 pub fn print_chunk(iccp_chunk: &iCCP) {
-    println!("========{:?}========", String::from_utf8_lossy(&iccp_chunk.ctype));
+    println!(
+        "========{:?}========",
+        String::from_utf8_lossy(&iccp_chunk.ctype)
+    );
     println!(
         "Profile Name: {:?}",
         String::from_utf8_lossy(&iccp_chunk.get_profile_name())
