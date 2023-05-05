@@ -52,11 +52,11 @@ Next up, this needs a rewrite using the table methodology
 pub fn print_chunk(iccp_chunk: &iCCP) {
     println!(
         "========{:?}========",
-        String::from_utf8_lossy(&iccp_chunk.ctype)
+        String::from_utf8_lossy(iccp_chunk.ctype)
     );
     println!(
         "Profile Name: {:?}",
-        String::from_utf8_lossy(&iccp_chunk.get_profile_name())
+        String::from_utf8_lossy(iccp_chunk.get_profile_name())
     );
     println!(
         "Compression Method: {:?}",
@@ -69,7 +69,7 @@ pub fn print_chunk(iccp_chunk: &iCCP) {
     );
     println!(
         "\t\tPreferred CMM: \t\t{:?}",
-        String::from_utf8_lossy(&IccProfile::get_profile_preferred_cmm_type(
+        String::from_utf8_lossy(IccProfile::get_profile_preferred_cmm_type(
             &iccp_chunk.get_profile()
         ))
     );
@@ -174,8 +174,8 @@ fn interpret_date_and_time(bytes: &[u8]) -> String {
     shared_buf.copy_from_slice(&bytes[10..12]);
     let seconds = u16::from_be_bytes(shared_buf);
 
-    return String::from(format!(
+    format!(
         "{}/{}/{} {}:{}:{:0>2}",
         month, day, year, hours, minutes, seconds
-    ));
+    )
 }

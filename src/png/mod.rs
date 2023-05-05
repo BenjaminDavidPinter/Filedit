@@ -50,7 +50,7 @@ pub fn read_png_chunk_from_bytes(bytes: &[u8]) -> BaseChunk {
 }
 
 pub fn parse(file: &str) {
-    let mut file = fs::File::open(&file).unwrap();
+    let mut file = fs::File::open(file).unwrap();
     let mut file_bytes = vec![];
     let file_size = file.read_to_end(&mut file_bytes).unwrap();
 
