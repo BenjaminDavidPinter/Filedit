@@ -16,6 +16,9 @@ fn main() {
             if Path::new(&arg).is_file() {
                 file = String::from(arg);
             }
+            else {
+                panic!("{} is not a parsable file", arg);
+            }
             png::parse(&file)
         }
     }

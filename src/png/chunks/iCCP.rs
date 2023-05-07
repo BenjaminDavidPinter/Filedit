@@ -15,7 +15,6 @@ pub struct iCCP<'a> {
 }
 
 impl iCCP<'_> {
-    //TODO: Rewrite this, I don't want to copy the profile data.
     pub fn get_profile_name(&self) -> &[u8] {
         /*Find the first index of control character, and then use that to perform a standard slice*/
         let position_of_stop = self
